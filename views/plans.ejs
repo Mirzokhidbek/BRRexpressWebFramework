@@ -1,102 +1,234 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Plans & Tasks</title>
 
-    <title>Rejalar</title>
-
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* ==========================================
+           1. Global Styles & Theme Setup
+        ========================================== */
         body {
-            background: #f5f7fb;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             min-height: 100vh;
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
         }
 
         .main-container {
-            max-width: 750px;
-            margin: 70px auto;
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
         }
 
-        .header h1 {
+        /* ==========================================
+           2. Header Styling
+        ========================================== */
+        .app-header h1 {
             font-weight: 700;
-            color: #212529;
+            color: #0f172a;
+            letter-spacing: -0.5px;
         }
 
-        .header p {
-            color: #6c757d;
+        .app-header p {
+            color: #64748b;
+            font-size: 1.05rem;
         }
 
-        .todo-card {
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
-            border: none;
+        /* ==========================================
+           3. Card & Input Section UI
+        ========================================== */
+        .action-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(226, 232, 240, 0.8);
         }
 
         .input-group-custom {
             display: flex;
-            gap: 12px;
+            gap: 15px;
         }
 
         .plan-input {
-            height: 52px;
-            border-radius: 12px !important;
-            border: 1px solid #dee2e6;
-            padding: 0 16px;
+            height: 56px;
+            border-radius: 14px !important;
+            padding: 0 20px;
             font-size: 16px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
 
         .plan-input:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
         .add-btn {
-            height: 52px;
-            border-radius: 12px;
-            padding: 0 22px;
+            height: 56px;
+            border-radius: 14px;
+            padding: 0 28px;
             font-weight: 600;
+            background: #6366f1;
+            border: none;
+            transition: all 0.2s ease;
             white-space: nowrap;
         }
 
-        .delete-all {
-            margin-top: 18px;
-            width: 100%;
-            height: 48px;
-            border-radius: 12px;
-            font-weight: 600;
+        .add-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
         }
 
+        /* ==========================================
+           4. Plan Items List UI & UX Effects
+        ========================================== */
         .plans-section {
-            margin-top: 30px;
+            margin-top: 35px;
+        }
+
+        .plans-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
         .plans-title {
-            font-size: 18px;
+            font-size: 1.1rem;
             font-weight: 600;
+            color: #334155;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-count {
+            background: #e0e7ff;
+            color: #4f46e5;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .plan-item {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f1f5f9;
+            transition: all 0.25s ease;
+        }
+
+        .plan-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .plan-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .plan-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #1e293b;
+            word-break: break-word;
+        }
+
+        /* ==========================================
+           5. Buttons & Actions UI
+        ========================================== */
+        .plan-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action-edit {
+            border-radius: 10px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border: 1.5px solid #cbd5e1;
+            color: #475569;
+            background: transparent;
+            transition: all 0.2s;
+        }
+
+        .btn-action-edit:hover {
+            background: #f8fafc;
+            border-color: #6366f1;
+            color: #6366f1;
+        }
+
+        .btn-action-delete {
+            border-radius: 10px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border: 1.5px solid #fecaca;
+            color: #dc2626;
+            background: transparent;
+            transition: all 0.2s;
+        }
+
+        .btn-action-delete:hover {
+            background: #fef2f2;
+            border-color: #dc2626;
+        }
+
+        .delete-all-btn {
+            margin-top: 25px;
+            width: 100%;
+            height: 50px;
+            border-radius: 14px;
+            font-weight: 600;
+            border: 2px dashed #fca5a5;
+            color: #dc2626;
+            background: #fff5f5;
+            transition: all 0.2s;
+        }
+
+        .delete-all-btn:hover {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        /* ==========================================
+           6. Empty State Styling
+        ========================================== */
+        .empty-state {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 50px 20px;
+            text-align: center;
+            color: #64748b;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .empty-icon {
+            font-size: 48px;
             margin-bottom: 15px;
         }
 
-        .empty-state {
-            background: white;
-            border-radius: 15px;
-            padding: 35px;
-            text-align: center;
-            color: #6c757d;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-        }
-
+        /* ==========================================
+           7. Responsive Adaptations
+        ========================================== */
         @media (max-width: 576px) {
             .main-container {
-                margin: 35px 15px;
+                margin: 25px 12px;
             }
 
             .input-group-custom {
@@ -107,8 +239,15 @@
                 width: 100%;
             }
 
-            .todo-card {
-                padding: 20px;
+            .plan-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .plan-actions {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -116,86 +255,113 @@
 
 <body>
 
-<div class="container main-container">
+    <div class="container main-container">
 
-    <!-- Header -->
-    <div class="header text-center mb-4">
-        <h1>📋 Rejalarim</h1>
-        <p class="lead mb-0">
-            Bugungi rejalaringizni yozing va boshqaring
-        </p>
-    </div>
+        <!-- ==========================================
+             HEADER SECTION
+        ========================================== -->
+        <div class="app-header text-center mb-4">
+            <h1 class="mb-1">✨ My Plans Dashboard</h1>
+            <p>Organize your daily goals, tasks, and workflow efficiently</p>
+        </div>
 
+        <!-- ==========================================
+             CREATE TASK SECTION (Input Form)
+        ========================================== -->
+        <div class="action-card">
+            <form action="/create-item" method="POST">
+                <div class="input-group-custom">
+                    <input 
+                        name="item" 
+                        class="form-control plan-input" 
+                        type="text" 
+                        placeholder="What needs to be done today?" 
+                        autocomplete="off" 
+                        required
+                    >
+                    <button type="submit" class="btn btn-primary add-btn">
+                        + Add Task
+                    </button>
+                </div>
+            </form>
+        </div>
 
-    <!-- Add plan -->
-    <div class="todo-card">
+        <!-- ==========================================
+             READ & DISPLAY TASKS SECTION
+        ========================================== -->
+        <div class="plans-section">
+            <div class="plans-header-info">
+                <span class="plans-title">Active Plans</span>
+                <span class="badge-count"><%= plans.length %> Tasks</span>
+            </div>
 
-        <form id="create-form" action="/create-item" method="POST">
+            <% if (plans.length === 0) { %>
+                <!-- Empty State Component -->
+                <div class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <h5 class="fw-bold text-dark mt-2">No plans available</h5>
+                    <p class="mb-0 text-muted">Get started by creating a new task using the input field above.</p>
+                </div>
+            <% } else { %>
+                <!-- Render Each Task Item -->
+                <% plans.forEach(function(plan) { %>
+                    <div class="plan-item">
+                        <div class="plan-content">
+                            <!-- Task Name/Text -->
+                            <div class="plan-text">
+                                <%= plan.item %>
+                            </div>
 
-            <div class="input-group-custom">
+                            <!-- Action Buttons Group (Update & Delete One) -->
+                            <div class="plan-actions">
+                                <!-- UPDATE FORM -->
+                                <form action="/update-item/<%= plan._id %>" method="POST" class="flex-fill">
+                                    <button 
+                                        type="submit" 
+                                        class="btn btn-action-edit w-100"
+                                        onclick="
+                                            const newItem = prompt('Edit your task:', '<%= plan.item %>');
+                                            if (newItem === null) return false;
+                                            this.form.innerHTML += '<input type=\'hidden\' name=\'item\' value=\'' + newItem.replace(/'/g, '&#39;') + '\'>';
+                                        "
+                                    >
+                                        ✏️ Edit
+                                    </button>
+                                </form>
 
-                <input
-                    id="create-field"
-                    name="item"
-                    autofocus
-                    autocomplete="off"
-                    class="form-control plan-input"
-                    type="text"
-                    placeholder="Yangi rejangizni yozing..."
-                    required
+                                <!-- DELETE ONE FORM -->
+                                <form action="/delete-item/<%= plan._id %>" method="POST" class="flex-fill">
+                                    <button 
+                                        type="submit" 
+                                        class="btn btn-action-delete w-100"
+                                        onclick="return confirm('Are you sure you want to delete this plan?');"
+                                    >
+                                        🗑 Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+
+        <!-- ==========================================
+             DELETE ALL SECTION
+        ========================================== -->
+        <% if (plans.length > 0) { %>
+            <form action="/delete-all" method="POST">
+                <button 
+                    type="submit" 
+                    class="btn delete-all-btn"
+                    onclick="return confirm('Warning: This will delete all tasks permanently. Proceed?');"
                 >
-
-                <button
-                    type="submit"
-                    class="btn btn-primary add-btn"
-                >
-                    + Reja qo‘shish
+                    🗑 Clear All Tasks
                 </button>
-
-            </div>
-
-        </form>
+            </form>
+        <% } %>
 
     </div>
-
-
-    <!-- Plans -->
-    <div class="plans-section">
-
-        <div class="plans-title">
-            Mening rejalarim
-        </div>
-
-        <!-- Keyinchalik backenddan rejalar shu yerga chiqadi -->
-        <div class="empty-state">
-
-            <div style="font-size: 40px;">
-                📝
-            </div>
-
-            <h5 class="mt-3">
-                Hozircha reja yo‘q
-            </h5>
-
-            <p class="mb-0">
-                Yuqoridagi input orqali yangi reja qo‘shing.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- Delete all -->
-    <button
-        id="clean-all"
-        class="btn btn-outline-danger delete-all"
-    >
-        🗑 Hamma rejalarni o‘chirish
-    </button>
-
-</div>
 
 </body>
-
 </html>
