@@ -1,37 +1,31 @@
-const express = require("express");
-const app = express();
 const http = require("http");
+ 
+const { MongoClient } = require("mongodb");
 
-// 1: Kirish code
-app.use(express.static("public"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const uri = "mongodb+srv://mirodeveloper7_db_user:bIS6F1Y8eoDCAgtK@cluster0.gylxozl.mongodb.net/?appName=Cluster0";
 
-// 2: Session code
+const client = new MongoClient(uri);
 
-// 3: Views code
-app.set("views", "views");
-app.set("view engine", "ejs");
+async function startServer() {
+    try {
+        await client.connect();
 
-// 4: Routing code
+        console.log("Connected to MongoDB");
+        const app = require("./app");
 
-app.post("/create-item", (req, res) => {
-    console.log(req.body);
+        const server = http.createServer(app);
 
-    res.redirect("/");
-});
+        const PORT = 3000;
 
-app.get("/", function (req, res) {
-    res.render("plans");
-});
+        server.listen(PORT, function () {
+            console.log(
+                `The server is running successfully on port: ${PORT}, http://localhost:${PORT}`
+            );
+        });
 
-// Server
-const server = http.createServer(app);
+    } catch (err) {
+        console.error("MongoDB connection error:", err);
+    }
+}
 
-let PORT = 3000;
-
-server.listen(PORT, function () {
-    console.log(
-        `The server is running successfully on port: ${PORT}, http://localhost:${PORT}`
-    );
-});
+startServer();
