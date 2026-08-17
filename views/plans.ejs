@@ -9,14 +9,18 @@
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- SweetAlert2 CSS (For beautiful popups) -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
 
     <style>
         /* ==========================================
-           1. Global Styles & Theme Setup
+           1. GLOBAL STYLES & BACKGROUND
         ========================================== */
         body {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
             min-height: 100vh;
             font-family: 'Inter', sans-serif;
             color: #1e293b;
@@ -29,110 +33,127 @@
         }
 
         /* ==========================================
-           2. Header Styling
+           2. HEADER TYPOGRAPHY
         ========================================== */
         .app-header h1 {
-            font-weight: 700;
-            color: #0f172a;
-            letter-spacing: -0.5px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
         }
 
         .app-header p {
             color: #64748b;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         /* ==========================================
-           3. Card & Input Section UI
+           3. INPUT SECTION (CREATE)
         ========================================== */
         .action-card {
             background: #ffffff;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         .input-group-custom {
             display: flex;
             gap: 15px;
+            position: relative;
         }
 
         .plan-input {
-            height: 56px;
-            border-radius: 14px !important;
-            padding: 0 20px;
-            font-size: 16px;
+            height: 60px;
+            border-radius: 16px !important;
+            padding: 0 25px;
+            font-size: 1.05rem;
             border: 2px solid #e2e8f0;
+            background-color: #f8fafc;
             transition: all 0.3s ease;
         }
 
         .plan-input:focus {
+            background-color: #ffffff;
             border-color: #6366f1;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
         .add-btn {
-            height: 56px;
-            border-radius: 14px;
-            padding: 0 28px;
+            height: 60px;
+            border-radius: 16px;
+            padding: 0 32px;
+            font-size: 1.05rem;
             font-weight: 600;
-            background: #6366f1;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
             border: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
 
         .add-btn:hover {
-            background: #4f46e5;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
         }
 
         /* ==========================================
-           4. Plan Items List UI & UX Effects
+           4. LIST ITEMS & ANIMATIONS
         ========================================== */
         .plans-section {
-            margin-top: 35px;
+            margin-top: 40px;
         }
 
         .plans-header-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .plans-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 700;
             color: #334155;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .badge-count {
             background: #e0e7ff;
             color: #4f46e5;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Smooth entry animation for items */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .plan-item {
             background: #ffffff;
-            border-radius: 16px;
-            padding: 20px 24px;
-            margin-bottom: 14px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+            border-radius: 18px;
+            padding: 20px 25px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
             border: 1px solid #f1f5f9;
-            transition: all 0.25s ease;
+            border-left: 5px solid #6366f1; /* Color accent on the left */
+            transition: all 0.3s ease;
+            animation: slideUpFade 0.4s ease forwards;
         }
 
         .plan-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            border-color: #cbd5e1;
+            transform: translateX(5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            border-left-color: #0ea5e9;
         }
 
         .plan-content {
@@ -143,112 +164,101 @@
         }
 
         .plan-text {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 500;
-            color: #1e293b;
+            color: #0f172a;
             word-break: break-word;
         }
 
         /* ==========================================
-           5. Buttons & Actions UI
+           5. ACTION BUTTONS (EDIT & DELETE)
         ========================================== */
         .plan-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .btn-action-edit {
-            border-radius: 10px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border: 1.5px solid #cbd5e1;
-            color: #475569;
-            background: transparent;
+        .btn-action {
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 10px 18px;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .btn-action-edit:hover {
+        .btn-edit {
+            border: 2px solid #e2e8f0;
+            color: #475569;
             background: #f8fafc;
+        }
+
+        .btn-edit:hover {
+            background: #ffffff;
             border-color: #6366f1;
             color: #6366f1;
         }
 
-        .btn-action-delete {
-            border-radius: 10px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border: 1.5px solid #fecaca;
-            color: #dc2626;
-            background: transparent;
-            transition: all 0.2s;
-        }
-
-        .btn-action-delete:hover {
+        .btn-delete {
+            border: 2px solid #fee2e2;
+            color: #ef4444;
             background: #fef2f2;
-            border-color: #dc2626;
         }
 
+        .btn-delete:hover {
+            background: #ef4444;
+            color: #ffffff;
+            border-color: #ef4444;
+        }
+
+        /* ==========================================
+           6. CLEAR ALL TASKS BUTTON
+        ========================================== */
         .delete-all-btn {
-            margin-top: 25px;
+            margin-top: 30px;
             width: 100%;
-            height: 50px;
-            border-radius: 14px;
+            height: 55px;
+            border-radius: 16px;
             font-weight: 600;
+            font-size: 1.05rem;
             border: 2px dashed #fca5a5;
-            color: #dc2626;
-            background: #fff5f5;
-            transition: all 0.2s;
+            color: #ef4444;
+            background: transparent;
+            transition: all 0.3s ease;
         }
 
         .delete-all-btn:hover {
-            background: #dc2626;
+            background: #ef4444;
             color: white;
-            border-color: #dc2626;
+            border-color: #ef4444;
         }
 
         /* ==========================================
-           6. Empty State Styling
+           7. EMPTY STATE
         ========================================== */
         .empty-state {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 50px 20px;
+            background: transparent;
+            padding: 60px 20px;
             text-align: center;
             color: #64748b;
-            border: 2px dashed #e2e8f0;
         }
 
         .empty-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
+            font-size: 60px;
+            color: #cbd5e1;
+            margin-bottom: 20px;
         }
 
         /* ==========================================
-           7. Responsive Adaptations
+           8. RESPONSIVE DESIGN
         ========================================== */
         @media (max-width: 576px) {
-            .main-container {
-                margin: 25px 12px;
-            }
-
-            .input-group-custom {
-                flex-direction: column;
-            }
-
-            .add-btn {
-                width: 100%;
-            }
-
-            .plan-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .plan-actions {
-                width: 100%;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-            }
+            .main-container { margin: 30px 15px; }
+            .input-group-custom { flex-direction: column; }
+            .add-btn { width: 100%; }
+            .plan-content { flex-direction: column; align-items: stretch; }
+            .plan-actions { display: grid; grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -260,13 +270,13 @@
         <!-- ==========================================
              HEADER SECTION
         ========================================== -->
-        <div class="app-header text-center mb-4">
-            <h1 class="mb-1">✨ My Plans Dashboard</h1>
-            <p>Organize your daily goals, tasks, and workflow efficiently</p>
+        <div class="app-header text-center mb-5">
+            <h1><i class="bi bi-check2-square text-primary"></i> Focus Hub</h1>
+            <p>Capture your ideas, prioritize your day, and get things done.</p>
         </div>
 
         <!-- ==========================================
-             CREATE TASK SECTION (Input Form)
+             CREATE TASK SECTION
         ========================================== -->
         <div class="action-card">
             <form action="/create-item" method="POST">
@@ -275,12 +285,12 @@
                         name="item" 
                         class="form-control plan-input" 
                         type="text" 
-                        placeholder="What needs to be done today?" 
+                        placeholder="What are you working on today?" 
                         autocomplete="off" 
                         required
                     >
                     <button type="submit" class="btn btn-primary add-btn">
-                        + Add Task
+                        <i class="bi bi-plus-lg"></i> Add Task
                     </button>
                 </div>
             </form>
@@ -291,54 +301,57 @@
         ========================================== -->
         <div class="plans-section">
             <div class="plans-header-info">
-                <span class="plans-title">Active Plans</span>
-                <span class="badge-count"><%= plans.length %> Tasks</span>
+                <span class="plans-title">Your Tasks</span>
+                <span class="badge-count"><%= plans.length %> Pending</span>
             </div>
 
             <% if (plans.length === 0) { %>
-                <!-- Empty State Component -->
+                
+                <!-- EMPTY STATE UI -->
                 <div class="empty-state">
-                    <div class="empty-icon">📝</div>
-                    <h5 class="fw-bold text-dark mt-2">No plans available</h5>
-                    <p class="mb-0 text-muted">Get started by creating a new task using the input field above.</p>
+                    <div class="empty-icon"><i class="bi bi-inbox"></i></div>
+                    <h4 class="fw-bold text-dark mt-2">All caught up!</h4>
+                    <p class="mb-0 text-muted">You have no tasks left for today. Enjoy your free time or add a new goal above.</p>
                 </div>
+
             <% } else { %>
-                <!-- Render Each Task Item -->
-                <% plans.forEach(function(plan) { %>
-                    <div class="plan-item">
+
+                <!-- RENDER TASKS -->
+                <% plans.forEach(function(plan, index) { %>
+                    <!-- Adding an animation delay so they appear one by one smoothly -->
+                    <div class="plan-item" style="animation-delay: <%= index * 0.05 %>s;">
                         <div class="plan-content">
-                            <!-- Task Name/Text -->
+                            
+                            <!-- Task Name -->
                             <div class="plan-text">
                                 <%= plan.item %>
                             </div>
 
-                            <!-- Action Buttons Group (Update & Delete One) -->
+                            <!-- Action Buttons -->
                             <div class="plan-actions">
-                                <!-- UPDATE FORM -->
+                                
+                                <!-- UPDATE FORM WITH SWEETALERT -->
                                 <form action="/update-item/<%= plan._id %>" method="POST" class="flex-fill">
                                     <button 
-                                        type="submit" 
-                                        class="btn btn-action-edit w-100"
-                                        onclick="
-                                            const newItem = prompt('Edit your task:', '<%= plan.item %>');
-                                            if (newItem === null) return false;
-                                            this.form.innerHTML += '<input type=\'hidden\' name=\'item\' value=\'' + newItem.replace(/'/g, '&#39;') + '\'>';
-                                        "
+                                        type="button" 
+                                        class="btn btn-action btn-edit w-100"
+                                        onclick="handleEdit(this, '<%= plan.item %>')"
                                     >
-                                        ✏️ Edit
+                                        <i class="bi bi-pencil-square"></i> Edit
                                     </button>
                                 </form>
 
-                                <!-- DELETE ONE FORM -->
+                                <!-- DELETE ONE FORM WITH SWEETALERT -->
                                 <form action="/delete-item/<%= plan._id %>" method="POST" class="flex-fill">
                                     <button 
-                                        type="submit" 
-                                        class="btn btn-action-delete w-100"
-                                        onclick="return confirm('Are you sure you want to delete this plan?');"
+                                        type="button" 
+                                        class="btn btn-action btn-delete w-100"
+                                        onclick="handleDelete(this, 'this specific task')"
                                     >
-                                        🗑 Delete
+                                        <i class="bi bi-trash3"></i> Delete
                                     </button>
                                 </form>
+
                             </div>
                         </div>
                     </div>
@@ -347,21 +360,75 @@
         </div>
 
         <!-- ==========================================
-             DELETE ALL SECTION
+             DELETE ALL SECTION WITH SWEETALERT
         ========================================== -->
         <% if (plans.length > 0) { %>
-            <form action="/delete-all" method="POST">
+            <form action="/delete-all" method="POST" id="deleteAllForm">
                 <button 
-                    type="submit" 
+                    type="button" 
                     class="btn delete-all-btn"
-                    onclick="return confirm('Warning: This will delete all tasks permanently. Proceed?');"
+                    onclick="handleDelete(this, 'EVERYTHING')"
                 >
-                    🗑 Clear All Tasks
+                    <i class="bi bi-exclamation-triangle"></i> Clear All Tasks
                 </button>
             </form>
         <% } %>
 
     </div>
+
+
+    <!-- ==========================================
+         JAVASCRIPT LOGIC FOR UX (SWEETALERT2)
+    ========================================== -->
+    <!-- SweetAlert2 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Function to handle the beautifully animated Edit Prompt
+        function handleEdit(buttonElement, currentText) {
+            Swal.fire({
+                title: 'Update Task',
+                input: 'text',
+                inputValue: currentText,
+                showCancelButton: true,
+                confirmButtonText: 'Save Changes',
+                confirmButtonColor: '#4f46e5',
+                cancelButtonColor: '#94a3b8',
+                inputValidator: (value) => {
+                    if (!value.trim()) {
+                        return 'Task cannot be empty!';
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = buttonElement.closest('form');
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'item';
+                    hiddenInput.value = result.value;
+                    form.appendChild(hiddenInput);
+                    form.submit();
+                }
+            });
+        }
+
+        // Function to handle the gracefully animated Delete Warning
+        function handleDelete(buttonElement, targetName) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `You are about to delete ${targetName}. This action cannot be undone!`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#94a3b8',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    buttonElement.closest('form').submit();
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
